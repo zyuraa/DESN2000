@@ -1,0 +1,17 @@
+main.o: sources\main.c
+main.o: sources\../Headers/stm32f103xe.h
+main.o: sources\../Headers/core_cm3.h
+main.o: D:\ARM\RV31\Inc\stdint.h
+main.o: sources\../Headers/core_cmInstr.h
+main.o: sources\../Headers/core_cmFunc.h
+main.o: sources\../Headers/system_stm32f1xx.h
+main.o: sources\../LCD/ili9341.h
+main.o: sources\../LCD/lcd_hw.h
+main.o: sources\../LCD/ili9341.h
+main.o: sources\../LCD/lcd_grph.h
+main.o: D:\ARM\RV31\Inc\stdio.h
+main.o: D:\ARM\RV31\Inc\time.h
+main.o: sources\rtc.h
+main.o: sources\touch.h
+main.o: sources\draw.h
+main.o: sources\songs.h

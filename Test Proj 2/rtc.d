@@ -1,0 +1,13 @@
+rtc.o: Sources\rtc.c
+rtc.o: Sources\../Headers/stm32f103xe.h
+rtc.o: Sources\../Headers/core_cm3.h
+rtc.o: D:\ARM\RV31\Inc\stdint.h
+rtc.o: Sources\../Headers/core_cmInstr.h
+rtc.o: Sources\../Headers/core_cmFunc.h
+rtc.o: Sources\../Headers/system_stm32f1xx.h
+rtc.o: Sources\../LCD/ili9341.h
+rtc.o: Sources\../LCD/lcd_hw.h
+rtc.o: Sources\../LCD/ili9341.h
+rtc.o: Sources\../LCD/lcd_grph.h
+rtc.o: D:\ARM\RV31\Inc\stdio.h
+rtc.o: D:\ARM\RV31\Inc\time.h
