@@ -9,6 +9,12 @@ void draw_alarms(void);
 
 void draw_songs(void);
 
+// list of songs
+int songs_row_hit(unsigned short x_num, unsigned short y_num);
+
+// now playing banner
+void draw_now_playing(const char *name);
+
 void draw_lights(void);
 
 void draw_coffee_state(int coffee_state);

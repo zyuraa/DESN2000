@@ -10,9 +10,6 @@
 #include "draw.h"
 #include "songs.h"
 
-extern struct tone song_data[];
-extern int song_duration;
-
 void draw_real_time() {
 	unsigned int real_time;
 	char time_str[10];
@@ -59,65 +56,6 @@ void draw_xy() {
 	lcd_putString(20, 270, (unsigned char *)y_str);
 }
 
-/*
-void dac_init() {
-	// Enable clock for DAC
-	RCC->APB1ENR |= RCC_APB1ENR_DACEN;
-	
-	// Enable GPIO Port A for PA4
-	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
-	
-	// Reset and configure PA4 as analog input 00 00
-	GPIOA->CRL &= ~GPIO_CRL_MODE4;
-	
-	// Enable Channel 1, leave B0FF1 at 0 so the output buffer stays on
-	DAC->CR |= DAC_CR_EN1;
-	
-	// Enable Timer 2 which will be used for the speaker
-	RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
-}
-
-void udelay(unsigned int delay_in_us) {
-	if (delay_in_us == 0) return;
-
-	// 1. Set prescaler for 1 MHz timer clock (1 tick = 1 us)
-	// Adjust '72' to match your APB1 timer clock in MHz (e.g., 36 for 36MHz)
-	TIM2->PSC = 72 - 1; 
-
-	// 2. Reset the counter and re-initialize shadow registers
-	TIM2->CNT = 0;
-	TIM2->EGR = TIM_EGR_UG;  // Generate Update Event to load prescaler immediately
-	TIM2->SR &= ~TIM_SR_UIF; // Clear update flag caused by UG
-
-	// 3. Enable Timer (CEN bit)
-	TIM2->CR1 |= TIM_CR1_CEN;
-
-	// 4. Wait until the counter reaches delay_in_us
-	while (TIM2->CNT < delay_in_us);
-
-	// 5. Disable Timer
-	TIM2->CR1 &= ~TIM_CR1_CEN;
-}
-
-void play_tone(unsigned int duration, int period, int vol) {
-	int i;
-	for (i = 0; i < duration / period; i++) {
-		DAC->DHR12R1 = (vol << 6);
-		udelay(period / 2);
-		
-		DAC->DHR12R1 = 0;
-		udelay(period / 2);
-	}
-}
-
-void play_song() {
-	int i = 0;
-	while (i <= song_duration) {
-		play_tone(52000 * song_data[i].duration, song_data[i].pitch, song_data[i].volume);
-		i++;
-	}
-}*/
-
 // Chars are 6x8 pixels
 
 int main() {
@@ -130,12 +68,12 @@ int main() {
 	unsigned short y_num = 0;
 
 	rtc_init();
-	
+
 	//rtc_set_time(1785030240);
-	
+
 	lcd_init();
 	spi_init();
-	//dac_init();
+	songs_init();
 	draw_home();
 	lcd_putString(172, 52, "Off");
 	
@@ -168,6 +106,16 @@ int main() {
 					page = 3;
 					
 				}
+			} else if (page == 2) {
+				// play 15s song, attempt to exit too
+				int song_hit = songs_row_hit(x_num, y_num);
+				if (song_hit >= 0) {
+					draw_now_playing(song_names[song_hit]);
+					play_song(song_hit);
+					draw_songs();
+				} else if (touch_rect(0, 0, 30, 30, x_num, y_num)) {
+					page = 0;
+				}
 			} else if (page != 0 && touch_rect(0, 0, 30, 30, x_num, y_num)) {
 				// Return Button
 				page = 0;
@@ -180,7 +128,6 @@ int main() {
 				draw_alarms();
 			} else if (page == 2) {
 				draw_songs();
-				//play_song();
 			} else if (page == 3) {
 				draw_lights();
 			} else {
