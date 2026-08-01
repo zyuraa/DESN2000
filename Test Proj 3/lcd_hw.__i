@@ -1,0 +1,1 @@
+-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I D:\ARM\RV31\Inc -I D:\ARM\CMSIS\Include -I D:\ARM\Inc\ST\STM32F10x -o "lcd_hw.o" --omf_browse "lcd_hw.crf" --depend "lcd_hw.d" "LCD\lcd_hw.c"

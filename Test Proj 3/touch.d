@@ -1,0 +1,12 @@
+touch.o: Sources\touch.c
+touch.o: Sources\../Headers/stm32f103xe.h
+touch.o: Sources\../Headers/core_cm3.h
+touch.o: D:\ARM\RV31\Inc\stdint.h
+touch.o: Sources\../Headers/core_cmInstr.h
+touch.o: Sources\../Headers/core_cmFunc.h
+touch.o: Sources\../Headers/system_stm32f1xx.h
+touch.o: Sources\../LCD/ili9341.h
+touch.o: Sources\../LCD/lcd_hw.h
+touch.o: Sources\../LCD/ili9341.h
+touch.o: Sources\../LCD/lcd_grph.h
+touch.o: D:\ARM\RV31\Inc\stdio.h

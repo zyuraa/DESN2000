@@ -1,0 +1,12 @@
+lights.o: Sources\lights.c
+lights.o: Sources\../Headers/stm32f103xe.h
+lights.o: Sources\../Headers/core_cm3.h
+lights.o: D:\ARM\RV31\Inc\stdint.h
+lights.o: Sources\../Headers/core_cmInstr.h
+lights.o: Sources\../Headers/core_cmFunc.h
+lights.o: Sources\../Headers/system_stm32f1xx.h
+lights.o: Sources\../LCD/ili9341.h
+lights.o: Sources\../LCD/lcd_hw.h
+lights.o: Sources\../LCD/ili9341.h
+lights.o: Sources\../LCD/lcd_grph.h
+lights.o: D:\ARM\RV31\Inc\stdio.h
