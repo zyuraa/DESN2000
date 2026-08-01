@@ -85,7 +85,7 @@ void gpio_f_init(void) {
 
 void blinds_init(void){
 	adc_init();
-	i2c1_init();
+	gpio_f_init();
 }
 
 
