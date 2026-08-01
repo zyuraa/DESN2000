@@ -57,58 +57,29 @@ int adc_read(void) {
   return (int)(ADC1->DR & 0xFFF);
 }
 
-// Low-level I2C write function
-void i2c_expander_write(uint8_t reg_addr, uint8_t data) {
-    
-	// Generate START condition
-  I2C1->CR1 |= I2C_CR1_START;
-  while (!(I2C1->SR1 & I2C_SR1_SB));   // Wait for Start Bit (SB) flag to set
-
-  // 2. Send Device Write Address
-  I2C1->DR = I2C_EXPANDER_ADDR_W;
-  while (!(I2C1->SR1 & I2C_SR1_ADDR)); // Wait for Address sent (ADDR) flag
-    
-  // Clear ADDR flag by reading SR1 followed by SR2
-  volatile uint32_t dummy = I2C1->SR1;
-  dummy = I2C1->SR2;
-
-  // 3. Send Register Address / Command byte to target inside expander
-  I2C1->DR = reg_addr;
-  while (!(I2C1->SR1 & I2C_SR1_TXE));  // Wait until Data Register Empty (TXE)
-
-  // 4. Send the Data Byte
-  I2C1->DR = data;
-  while (!(I2C1->SR1 & I2C_SR1_TXE));  
-  while (!(I2C1->SR1 & I2C_SR1_BTF));  // Wait for Byte Transfer Finished (BTF)
-
-  // 5. Generate STOP condition
-  I2C1->CR1 |= I2C_CR1_STOP;
-}
-
-
-void i2c1_init(void) {
-  // Enable clocks for I2C1 and GPIOB
-  RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
-  RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
+void gpio_f_init(void) {
+  // Enable Port F Clock
+  RCC->APB2ENR |= RCC_APB2ENR_IOPFEN;
   
-  // Configure PB6 (SCL) and PB7 (SDA) as Alternate Function Open-Drain (MODE = 11, CNF = 11)
-  GPIOB->CRL &= ~((0xF << (4 * 6)) | (0xF << (4 * 7))); 
-  GPIOB->CRL |=  ((0xF << (4 * 6)) | (0xF << (4 * 7))); 
-
-  // Configure I2C peripheral speed and timings (assuming 36MHz APB1 clock / PCLK1)
-  I2C1->CR2 = 36;                     // Set peripheral frequency in MHz (36 MHz)
-  I2C1->CCR = 180;                    // Standard mode 100kHz: 36,000,000 / (2 * 100,000) = 180
-  I2C1->TRISE = 37;                   // Maximum rise time: 36 + 1 = 37
-
-  // Enable I2C1 Peripheral
-  I2C1->CR1 |= I2C_CR1_PE;
-
-  // Configure I/O expander pins as outputs (0 = Output, 1 = Input)
-  // We want pins 0-3 (Green) and pins 6-7 (Red) set as outputs. 
-  // Binary: 00111111 (Hex: 0x3F) -> Sets IO0-IO5 as outputs, IO6-IO7 as inputs? 
-  // Wait: bits 0,1,2,3 (Green) and bits 6,7 (Red) -> binary 00110111 = 0x37 or 0x0F depending on exact mapping.
-  // To be safe, set all lower 8 pins (0 to 7) as outputs by writing 0x00 to the configuration register:
-  i2c_expander_write(IO_EXPANDER_CONFIG_REG, 0x00);
+  // Clear Config for Pins 0 to 7
+  GPIOF->CRL &= ~(GPIO_CRL_CNF0 | GPIO_CRL_MODE0);
+  GPIOF->CRL &= ~(GPIO_CRL_CNF1 | GPIO_CRL_MODE1);
+  GPIOF->CRL &= ~(GPIO_CRL_CNF2 | GPIO_CRL_MODE2);
+  GPIOF->CRL &= ~(GPIO_CRL_CNF3 | GPIO_CRL_MODE3);
+  GPIOF->CRL &= ~(GPIO_CRL_CNF4 | GPIO_CRL_MODE4);
+  GPIOF->CRL &= ~(GPIO_CRL_CNF5 | GPIO_CRL_MODE5);
+  GPIOF->CRL &= ~(GPIO_CRL_CNF6 | GPIO_CRL_MODE6);
+  GPIOF->CRL &= ~(GPIO_CRL_CNF7 | GPIO_CRL_MODE7);
+    
+  // Set Output General Purpose (Push-Pull, 2MHz or 50MHz - mode bits set to 10 for 2MHz output)
+  GPIOF->CRL |= GPIO_CRL_MODE0_1;
+  GPIOF->CRL |= GPIO_CRL_MODE1_1;
+  GPIOF->CRL |= GPIO_CRL_MODE2_1;
+  GPIOF->CRL |= GPIO_CRL_MODE3_1;
+  GPIOF->CRL |= GPIO_CRL_MODE4_1;
+  GPIOF->CRL |= GPIO_CRL_MODE5_1;
+  GPIOF->CRL |= GPIO_CRL_MODE6_1;
+  GPIOF->CRL |= GPIO_CRL_MODE7_1;
 }
 
 
@@ -121,21 +92,23 @@ void blinds_init(void){
 
 // Main function to activate blinds -> Take output from ADC and turn ladder lights RED (blinds open) or GREEN (blinds closed)
 void update_blinds(void) {
-	//adc_init();
-	//i2c1_init();
-		
-	int light_value = 0;
+	// int light_value = 0;
 
-	light_value = adc_read();
+	int light_value = adc_read();
 	
 	if (light_value > LIGHT_THRESHOLD) {
-		// Blinds open: Red LEDs on (bits 6-7), Green off (bits 0-3)
-    i2c_expander_write(IO_EXPANDER_OUTPUT_REG, 0xC0);
-	// blinds are closed 	
-	} else {
-		// Blinds closing: Green LEDs on (bits 0-3), Red off (bits 6-7)
-    i2c_expander_write(IO_EXPANDER_OUTPUT_REG, 0x0F);
-	}
+      // Blinds open: Red lights on (Pins 6-7), Green lights off (Pins 0-3)
+      // Set bits 6 and 7 high
+      GPIOF->BSRR = (1 << 6) | (1 << 7);
+      // Reset bits 0, 1, 2, 3 low (using upper 16 bits of BSRR for atomic reset)
+        GPIOF->BSRR = (1 << (0 + 16)) | (1 << (1 + 16)) | (1 << (2 + 16)) | (1 << (3 + 16));
+  } else {
+      // Blinds closing: Green lights on (Pins 0-3), Red lights off (Pins 6-7)
+      // Set bits 0, 1, 2, 3 high
+      GPIOF->BSRR = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3);
+      // Reset bits 6 and 7 low
+      GPIOF->BSRR = (1 << (6 + 16)) | (1 << (7 + 16));
+  }
 }
 
 
