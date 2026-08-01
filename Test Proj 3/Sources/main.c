@@ -12,9 +12,6 @@
 #include "songs.h"
 #include "lights.h"
 
-extern struct tone song_data[];
-extern int song_duration;
-
 void get_real_time(char *time_str, char *date_str) {
 	unsigned int real_time;
 	RTC->CRL &= ~RTC_CRL_RSF;
@@ -205,6 +202,7 @@ int main() {
 	rgb_init();
 	led_init();
 	delay_init();
+	songs_init();
 	draw_home();
 	lcd_putString(172, 52, "Off");
 	
@@ -280,7 +278,12 @@ int main() {
 				}
 
 			} else if (page == 2) { // Songs App
-
+				int song_hit = songs_row_hit(x_num, y_num);
+				if (song_hit >= 0) {
+					draw_now_playing(song_names[song_hit]);
+					play_song(song_hit);
+					draw_songs();
+				}
 
 			} else if (page == 3) { // Lights App
 				if (touch_rect(40, 30, 200, 55, x_num, y_num)) {
