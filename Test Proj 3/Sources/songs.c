@@ -938,15 +938,10 @@ static void play_tone(unsigned int duration_us, int period_us, int vol) {
     }
 }
 
-void play_song(int index) {
+// used by play_song() and the one-off alarm and doorbell
+static void play_notes(const struct tone *notes, int len) {
     int i;
-    const struct tone *notes;
-    int len;
 
-    if (index < 0 || index >= NUM_SONGS) return;
-
-    notes = song_arrays[index];
-    len = song_lengths[index];
     song_abort = 0;
 
     // change timer to 1u
@@ -972,4 +967,142 @@ void play_song(int index) {
     TIM2->EGR = TIM_EGR_UG;
     TIM2->SR &= ~TIM_SR_UIF;
     TIM2->CR1 |= TIM_CR1_CEN;
+}
+
+void play_song(int index) {
+    if (index < 0 || index >= NUM_SONGS) return;
+    play_notes(song_arrays[index], song_lengths[index]);
+}
+
+// doorbell and alarm sound effects, not in songs playlist
+
+// doorbell
+const struct tone doorbell_data[] = {
+    {167, E5, 0x193},
+    {167, OFF, 0},
+    {167, G5, 0x193},
+    {167, OFF, 0},
+    {167, C5, 0x193},
+};
+const int doorbell_data_len = sizeof(doorbell_data) / sizeof(doorbell_data[0]);
+
+// normal alarm
+const struct tone alarm_sound_data[] = {
+    {100, FS3, 0x193},
+    {100, DS2, 0x193},
+    {100, GS3, 0x193},
+    {100, OFF, 0},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, CS4, 0x193},
+    {100, DS2, 0x193},
+    {100, F4, 0x193},
+    {100, AS1, 0x193},
+    {200, DS2, 0x193},
+    {100, FS2, 0x193},
+    {400, FS5, 0xC1},
+    {200, CS5, 0xE2},
+    {100, GS4, 0xE2},
+    {200, OFF, 0},
+    {200, DS2, 0x193},
+    {200, GS5, 0x193},
+    {200, DS2, 0x193},
+    {200, GS4, 0x193},
+    {200, OFF, 0},
+    {100, GS3, 0x193},
+    {100, F2, 0x193},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, C4, 0x193},
+    {100, OFF, 0},
+    {100, DS4, 0x193},
+    {100, F2, 0x193},
+    {100, GS4, 0x193},
+    {100, C2, 0x193},
+    {200, F2, 0x193},
+    {100, GS2, 0x193},
+    {400, FS5, 0xE2},
+    {200, CS5, 0xE2},
+    {100, GS4, 0xE2},
+    {200, OFF, 0},
+    {200, F2, 0x193},
+    {200, GS5, 0x193},
+    {200, F2, 0x193},
+    {200, GS4, 0x193},
+    {200, OFF, 0},
+    {100, FS3, 0x193},
+    {100, DS2, 0x193},
+    {100, GS3, 0x193},
+    {100, OFF, 0},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, CS4, 0x193},
+    {100, DS2, 0x193},
+    {100, F4, 0x193},
+    {100, AS1, 0x193},
+    {200, DS2, 0x193},
+    {100, AS2, 0x193},
+    {400, FS5, 0xE2},
+    {200, CS5, 0xE2},
+    {100, GS4, 0xE2},
+    {200, OFF, 0},
+    {200, DS2, 0x193},
+    {200, GS5, 0x193},
+    {200, DS2, 0x193},
+    {200, GS4, 0x193},
+    {200, OFF, 0},
+    {100, GS3, 0x193},
+    {100, F2, 0x193},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, C4, 0x193},
+    {100, OFF, 0},
+    {100, DS4, 0x193},
+    {100, F2, 0x193},
+    {100, AS4, 0x193},
+    {100, OFF, 0},
+    {100, C3, 0x193},
+    {100, OFF, 0},
+    {100, B4, 0xC1},
+    {400, GS5, 0xE2},
+    {200, DS5, 0xE2},
+    {100, AS4, 0xE2},
+    {100, B4, 0xC1},
+    {100, OFF, 0},
+    {200, F2, 0x193},
+    {200, AS5, 0x193},
+    {200, AS2, 0x193},
+    {200, AS4, 0x193},
+};
+const int alarm_sound_data_len = sizeof(alarm_sound_data) / sizeof(alarm_sound_data[0]);
+
+// alcohol alarm
+const struct tone alcohol_alarm_data[] = {
+    {600, C4, 0x142},
+    {400, DS4, 0x142},
+    {200, F4, 0x142},
+    {200, C4, 0x89},
+    {200, F4, 0x142},
+    {200, DS4, 0x142},
+    {2200, F4, 0x142},
+    {200, DS4, 0x142},
+    {600, F4, 0x142},
+    {200, C5, 0x89},
+    {200, AS4, 0x89},
+    {200, GS4, 0x89},
+    {200, G4, 0x89},
+    {600, A4, 0x89},
+};
+const int alcohol_alarm_data_len = sizeof(alcohol_alarm_data) / sizeof(alcohol_alarm_data[0]);
+
+void play_doorbell(void) {
+    play_notes(doorbell_data, doorbell_data_len);
+}
+
+void play_alarm_sound(void) {
+    play_notes(alarm_sound_data, alarm_sound_data_len);
+}
+
+void play_alcohol_alarm_sound(void) {
+    play_notes(alcohol_alarm_data, alcohol_alarm_data_len);
 }

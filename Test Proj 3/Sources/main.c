@@ -344,6 +344,7 @@ int main() {
 			if (check_time(time_str, alcohol_hour, alcohol_minute)) {
 				// Play alarm, disable alcohol alarm
 				GPIOF->BSRR = GPIO_BSRR_BS6;
+				play_alcohol_alarm_sound();
 				alcohol_enable = 0;
 			}
 		} else {
@@ -358,6 +359,7 @@ int main() {
 			if (check_time(time_str, alarm_hour, alarm_minute)) {
 				// Play alarm, disable alarm
 				GPIOF->BSRR = GPIO_BSRR_BS7;
+				play_alarm_sound();
 				alarm_enable = 0;
 			}
 		}

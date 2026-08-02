@@ -25,6 +25,12 @@ extern const int song_lengths[NUM_SONGS];
 // initialise board for songs
 void songs_init(void);
 
+// plays 15s songs
 void play_song(int index);
+
+// plays short sound effects
+void play_doorbell(void);
+void play_alarm_sound(void);
+void play_alcohol_alarm_sound(void);
 
 #endif
