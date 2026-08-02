@@ -15,6 +15,9 @@
 
 #define OFF		100
 
+// mid rail voltage, guide says to do this
+#define DAC_MID 0X800
+
 // taken and edited from lab 5
 
 #define C4 		3831
@@ -94,6 +97,125 @@
 #define A6 		A5/2
 #define AS6 	AS5/2
 #define B6 		B5/2
+
+// doorbell
+const struct tone doorbell_data[] = {
+    {167, E5, 0x193},
+    {167, OFF, 0},
+    {167, G5, 0x193},
+    {167, OFF, 0},
+    {167, C5, 0x193},
+};
+const int doorbell_data_len = sizeof(doorbell_data) / sizeof(doorbell_data[0]);
+
+// normal alarm
+const struct tone alarm_sound_data[] = {
+    {100, FS3, 0x193},
+    {100, DS2, 0x193},
+    {100, GS3, 0x193},
+    {100, OFF, 0},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, CS4, 0x193},
+    {100, DS2, 0x193},
+    {100, F4, 0x193},
+    {100, AS1, 0x193},
+    {200, DS2, 0x193},
+    {100, FS2, 0x193},
+    {400, FS5, 0xC1},
+    {200, CS5, 0xE2},
+    {100, GS4, 0xE2},
+    {200, OFF, 0},
+    {200, DS2, 0x193},
+    {200, GS5, 0x193},
+    {200, DS2, 0x193},
+    {200, GS4, 0x193},
+    {200, OFF, 0},
+    {100, GS3, 0x193},
+    {100, F2, 0x193},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, C4, 0x193},
+    {100, OFF, 0},
+    {100, DS4, 0x193},
+    {100, F2, 0x193},
+    {100, GS4, 0x193},
+    {100, C2, 0x193},
+    {200, F2, 0x193},
+    {100, GS2, 0x193},
+    {400, FS5, 0xE2},
+    {200, CS5, 0xE2},
+    {100, GS4, 0xE2},
+    {200, OFF, 0},
+    {200, F2, 0x193},
+    {200, GS5, 0x193},
+    {200, F2, 0x193},
+    {200, GS4, 0x193},
+    {200, OFF, 0},
+    {100, FS3, 0x193},
+    {100, DS2, 0x193},
+    {100, GS3, 0x193},
+    {100, OFF, 0},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, CS4, 0x193},
+    {100, DS2, 0x193},
+    {100, F4, 0x193},
+    {100, AS1, 0x193},
+    {200, DS2, 0x193},
+    {100, AS2, 0x193},
+    {400, FS5, 0xE2},
+    {200, CS5, 0xE2},
+    {100, GS4, 0xE2},
+    {200, OFF, 0},
+    {200, DS2, 0x193},
+    {200, GS5, 0x193},
+    {200, DS2, 0x193},
+    {200, GS4, 0x193},
+    {200, OFF, 0},
+    {100, GS3, 0x193},
+    {100, F2, 0x193},
+    {100, AS3, 0x193},
+    {100, OFF, 0},
+    {100, C4, 0x193},
+    {100, OFF, 0},
+    {100, DS4, 0x193},
+    {100, F2, 0x193},
+    {100, AS4, 0x193},
+    {100, OFF, 0},
+    {100, C3, 0x193},
+    {100, OFF, 0},
+    {100, B4, 0xC1},
+    {400, GS5, 0xE2},
+    {200, DS5, 0xE2},
+    {100, AS4, 0xE2},
+    {100, B4, 0xC1},
+    {100, OFF, 0},
+    {200, F2, 0x193},
+    {200, AS5, 0x193},
+    {200, AS2, 0x193},
+    {200, AS4, 0x193},
+};
+const int alarm_sound_data_len = sizeof(alarm_sound_data) / sizeof(alarm_sound_data[0]);
+
+// alcohol alarm
+const struct tone alcohol_alarm_data[] = {
+    {600, C4, 0x142},
+    {400, DS4, 0x142},
+    {200, F4, 0x142},
+    {200, C4, 0x89},
+    {200, F4, 0x142},
+    {200, DS4, 0x142},
+    {2200, F4, 0x142},
+    {200, DS4, 0x142},
+    {600, F4, 0x142},
+    {200, C5, 0x89},
+    {200, AS4, 0x89},
+    {200, GS4, 0x89},
+    {200, G4, 0x89},
+    {600, A4, 0x89},
+};
+const int alcohol_alarm_data_len = sizeof(alcohol_alarm_data) / sizeof(alcohol_alarm_data[0]);
 
 //
 // Song Title: Nyanyanyanyanyanyanya! (Popularly known as 'Nyan Cat')
@@ -868,6 +990,7 @@ void songs_init(void) {
     // Enable DAC channel 1, software trigger, output buffer on
     DAC->CR = DAC_CR_EN1;
 
+    // DAC->DHR12R1 = DAC_MID;
     // lights alr has timer, so have to change it from 1m to 1u
 }
 
@@ -875,7 +998,9 @@ void songs_init(void) {
 static void songs_udelay(unsigned int delay_in_us) {
     unsigned int chunk;
 
-    if (delay_in_us == 0) return;
+    if (delay_in_us == 0) {
+        return;
+    }
 
     while (delay_in_us > 0) {
         if (delay_in_us > 30000) {
@@ -886,7 +1011,9 @@ static void songs_udelay(unsigned int delay_in_us) {
 
         TIM2->CNT = 0;
         TIM2->CR1 |= TIM_CR1_CEN;
+
         while ((TIM2->CNT < chunk) && (TIM2->CNT <= 30000));
+
         TIM2->CR1 &= ~TIM_CR1_CEN;
 
         delay_in_us -= chunk;
@@ -909,17 +1036,22 @@ static int songs_cancel_requested(void) {
 
 static void play_tone(unsigned int duration_us, int period_us, int vol) {
     int half_period;
-    int cycles, i;
+    int cycles;
+    int i;
 
     // Rests
     if (vol == 0 || period_us == OFF || period_us <= 0) {
         DAC->DHR12R1 = 0;
+        // guide says mid not 0 for no popping
+        // DAC->DHR12R1 = DAC_MID;
         songs_udelay(duration_us);
         return;
     }
 
     half_period = period_us / 2;
-    if (half_period < 1) half_period = 1;
+    if (half_period < 1) {
+        half_period = 1;
+    }
 
     cycles = duration_us / period_us;
 
@@ -931,9 +1063,11 @@ static void play_tone(unsigned int duration_us, int period_us, int vol) {
         }
 
         DAC->DHR12R1 = vol;
+        // DAC->DHR12R1 = DAC_MID + vol;
         songs_udelay(half_period);
 
         DAC->DHR12R1 = 0;
+        // DAC->DHR12R1 = DAC_MID - vol;
         songs_udelay(half_period);
     }
 }
@@ -958,6 +1092,7 @@ static void play_notes(const struct tone *notes, int len) {
 
     // off at the end
     DAC->DHR12R1 = 0;
+    // DAC->DHR12R1 = DAC_MID;
 
     // give TIM2 back to delay_init()'s 1ms free-running tick
     TIM2->CR1 &= ~TIM_CR1_CEN;
@@ -970,130 +1105,14 @@ static void play_notes(const struct tone *notes, int len) {
 }
 
 void play_song(int index) {
-    if (index < 0 || index >= NUM_SONGS) return;
+    if (index < 0 || index >= NUM_SONGS) {
+        return;
+    }
+
     play_notes(song_arrays[index], song_lengths[index]);
 }
 
 // doorbell and alarm sound effects, not in songs playlist
-
-// doorbell
-const struct tone doorbell_data[] = {
-    {167, E5, 0x193},
-    {167, OFF, 0},
-    {167, G5, 0x193},
-    {167, OFF, 0},
-    {167, C5, 0x193},
-};
-const int doorbell_data_len = sizeof(doorbell_data) / sizeof(doorbell_data[0]);
-
-// normal alarm
-const struct tone alarm_sound_data[] = {
-    {100, FS3, 0x193},
-    {100, DS2, 0x193},
-    {100, GS3, 0x193},
-    {100, OFF, 0},
-    {100, AS3, 0x193},
-    {100, OFF, 0},
-    {100, CS4, 0x193},
-    {100, DS2, 0x193},
-    {100, F4, 0x193},
-    {100, AS1, 0x193},
-    {200, DS2, 0x193},
-    {100, FS2, 0x193},
-    {400, FS5, 0xC1},
-    {200, CS5, 0xE2},
-    {100, GS4, 0xE2},
-    {200, OFF, 0},
-    {200, DS2, 0x193},
-    {200, GS5, 0x193},
-    {200, DS2, 0x193},
-    {200, GS4, 0x193},
-    {200, OFF, 0},
-    {100, GS3, 0x193},
-    {100, F2, 0x193},
-    {100, AS3, 0x193},
-    {100, OFF, 0},
-    {100, C4, 0x193},
-    {100, OFF, 0},
-    {100, DS4, 0x193},
-    {100, F2, 0x193},
-    {100, GS4, 0x193},
-    {100, C2, 0x193},
-    {200, F2, 0x193},
-    {100, GS2, 0x193},
-    {400, FS5, 0xE2},
-    {200, CS5, 0xE2},
-    {100, GS4, 0xE2},
-    {200, OFF, 0},
-    {200, F2, 0x193},
-    {200, GS5, 0x193},
-    {200, F2, 0x193},
-    {200, GS4, 0x193},
-    {200, OFF, 0},
-    {100, FS3, 0x193},
-    {100, DS2, 0x193},
-    {100, GS3, 0x193},
-    {100, OFF, 0},
-    {100, AS3, 0x193},
-    {100, OFF, 0},
-    {100, CS4, 0x193},
-    {100, DS2, 0x193},
-    {100, F4, 0x193},
-    {100, AS1, 0x193},
-    {200, DS2, 0x193},
-    {100, AS2, 0x193},
-    {400, FS5, 0xE2},
-    {200, CS5, 0xE2},
-    {100, GS4, 0xE2},
-    {200, OFF, 0},
-    {200, DS2, 0x193},
-    {200, GS5, 0x193},
-    {200, DS2, 0x193},
-    {200, GS4, 0x193},
-    {200, OFF, 0},
-    {100, GS3, 0x193},
-    {100, F2, 0x193},
-    {100, AS3, 0x193},
-    {100, OFF, 0},
-    {100, C4, 0x193},
-    {100, OFF, 0},
-    {100, DS4, 0x193},
-    {100, F2, 0x193},
-    {100, AS4, 0x193},
-    {100, OFF, 0},
-    {100, C3, 0x193},
-    {100, OFF, 0},
-    {100, B4, 0xC1},
-    {400, GS5, 0xE2},
-    {200, DS5, 0xE2},
-    {100, AS4, 0xE2},
-    {100, B4, 0xC1},
-    {100, OFF, 0},
-    {200, F2, 0x193},
-    {200, AS5, 0x193},
-    {200, AS2, 0x193},
-    {200, AS4, 0x193},
-};
-const int alarm_sound_data_len = sizeof(alarm_sound_data) / sizeof(alarm_sound_data[0]);
-
-// alcohol alarm
-const struct tone alcohol_alarm_data[] = {
-    {600, C4, 0x142},
-    {400, DS4, 0x142},
-    {200, F4, 0x142},
-    {200, C4, 0x89},
-    {200, F4, 0x142},
-    {200, DS4, 0x142},
-    {2200, F4, 0x142},
-    {200, DS4, 0x142},
-    {600, F4, 0x142},
-    {200, C5, 0x89},
-    {200, AS4, 0x89},
-    {200, GS4, 0x89},
-    {200, G4, 0x89},
-    {600, A4, 0x89},
-};
-const int alcohol_alarm_data_len = sizeof(alcohol_alarm_data) / sizeof(alcohol_alarm_data[0]);
 
 void play_doorbell(void) {
     play_notes(doorbell_data, doorbell_data_len);
