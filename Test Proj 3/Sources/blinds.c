@@ -5,9 +5,12 @@
 
 // Light threshold value (may need to adjust depending on tests (for now it is halfway between 0 --> 4096) 
 #define LIGHT_THRESHOLD 					2048
-#define I2C_EXPANDER_ADDR_W      	0x70  
-#define IO_EXPANDER_OUTPUT_REG   	0x01
-#define IO_EXPANDER_CONFIG_REG   	0x03
+
+// Define 2 States
+typedef enum {
+    STATE_CLOSED = 0,
+    STATE_OPEN
+} blind_state_t;
 
 void adc_init(void) {
 	
@@ -61,8 +64,7 @@ void gpio_f_init(void) {
   // Enable Port F Clock
   RCC->APB2ENR |= RCC_APB2ENR_IOPFEN;
   
-  // Clear Config for Pins 0 to 7
-  GPIOF->CRL &= ~(GPIO_CRL_CNF0 | GPIO_CRL_MODE0);
+  // Clear Config for Pins 1 to 7
   GPIOF->CRL &= ~(GPIO_CRL_CNF1 | GPIO_CRL_MODE1);
   GPIOF->CRL &= ~(GPIO_CRL_CNF2 | GPIO_CRL_MODE2);
   GPIOF->CRL &= ~(GPIO_CRL_CNF3 | GPIO_CRL_MODE3);
@@ -72,7 +74,6 @@ void gpio_f_init(void) {
   GPIOF->CRL &= ~(GPIO_CRL_CNF7 | GPIO_CRL_MODE7);
     
   // Set Output General Purpose (Push-Pull, 2MHz or 50MHz - mode bits set to 10 for 2MHz output)
-  GPIOF->CRL |= GPIO_CRL_MODE0_1;
   GPIOF->CRL |= GPIO_CRL_MODE1_1;
   GPIOF->CRL |= GPIO_CRL_MODE2_1;
   GPIOF->CRL |= GPIO_CRL_MODE3_1;
@@ -92,22 +93,36 @@ void blinds_init(void){
 
 // Main function to activate blinds -> Take output from ADC and turn ladder lights RED (blinds open) or GREEN (blinds closed)
 void update_blinds(void) {
-	// int light_value = 0;
 
-	int light_value = adc_read();
-	
-	if (light_value > LIGHT_THRESHOLD) {
-      // Blinds open: Red lights on (Pins 6-7), Green lights off (Pins 0-3)
-      // Set bits 6 and 7 high
-      GPIOF->BSRR = (1 << 6) | (1 << 7);
-      // Reset bits 0, 1, 2, 3 low (using upper 16 bits of BSRR for atomic reset)
-        GPIOF->BSRR = (1 << (0 + 16)) | (1 << (1 + 16)) | (1 << (2 + 16)) | (1 << (3 + 16));
+  static int open_timer = 0;
+  static int close_timer = 0;
+  static blind_state_t current_state = STATE_CLOSED;
+
+  int light = adc_read();
+
+  // Evaluate light level and update timers
+  if (light >= LIGHT_THRESHOLD) {
+    open_timer++;
+    close_timer = 0;
   } else {
-      // Blinds closing: Green lights on (Pins 0-3), Red lights off (Pins 6-7)
-      // Set bits 0, 1, 2, 3 high
-      GPIOF->BSRR = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3);
-      // Reset bits 6 and 7 low
-      GPIOF->BSRR = (1 << (6 + 16)) | (1 << (7 + 16));
+    close_timer++;
+    open_timer = 0;
+  }
+	
+	// State Transition Logic based on Timer Thresholds (e.g., 10 consecutive ticks)
+  if (current_state != STATE_OPEN && open_timer >= 10) {
+    current_state = STATE_OPEN;
+      
+    // Action: Open Blinds -> Red lights on (Pins 6-7), Green lights off (Pins 0-3)
+    GPIOF->BSRR = (1 << 6) | (1 << 7);
+    GPIOF->BSRR = (1 << (0 + 16)) | (1 << (1 + 16)) | (1 << (2 + 16)) | (1 << (3 + 16));
+  } 
+  else if (current_state != STATE_CLOSED && close_timer >= 10) {
+    current_state = STATE_CLOSED;
+      
+    // Action: Close Blinds -> Green lights on (Pins 0-3), Red lights off (Pins 6-7)
+    GPIOF->BSRR = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3);
+    GPIOF->BSRR = (1 << (6 + 16)) | (1 << (7 + 16));
   }
 }
 
