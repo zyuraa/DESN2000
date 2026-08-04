@@ -2,31 +2,32 @@
 #include "stdio.h"
 
 void button_init() {
-    RCC->APB2ENR |= RCC_APB2ENR_IOPEEN;
-    GPIOA->CRL &= ~(GPIO_CRL_CNF1 | GPIO_CRL_MODE1);
 
-    // set MODE and CNF for input
-    GPIOE->CRL |= GPIO_CRL_CNF1_0 | GPIO_CRL_MODE1_0;
+    // enable clock
+    RCC->APB2ENR |= RCC_APB2ENR_IOPEEN;
+
+    // reset registers
+    GPIOE->CRL &= ~(GPIO_CRL_CNF1 | GPIO_CRL_MODE1);
+
+    // set input pull up/down 00 10
+    GPIOE->CRL |= GPIO_CRL_CNF1_1;
+
+    // set active low (pull up)
+    GPIOE->ODR |= GPIO_ODR_ODR1;
 }
 
 /*
 returns 1 or 0 reading the input data register
 */
 void read_doorbell() {
-	unsigned int btn;
-    unsigned int prev;
+    static unsigned int prev = 1;
 
-    // read btn from IDR and set prev to not pressed
-    btn = GPIOE->IDR & GPIO_IDR_IDR1_Msk;
-    prev = ~GPIO_IDR_IDR1_Pos;
+    unsigned int btn = GPIOE->IDR & GPIO_IDR_IDR1_Msk;
 
-    // if btn pressed ring doorbell
-    if ((btn == GPIO_IDR_IDR1_Pos) && (prev != GPIO_IDR_IDR1_Pos)) {
-        // imported function from songs
+    // Button has transitioned from released -> pressed
+    if (prev != 0 && btn == 0) {
         ring_doorbell();
-
-        prev = GPIO_IDR_IDR1_Pos;
     }
 
-    return btn;
+    prev = btn;
 }
