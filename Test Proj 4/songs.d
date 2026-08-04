@@ -1,0 +1,9 @@
+songs.o: Sources\songs.c
+songs.o: Sources\../Headers/stm32f103xe.h
+songs.o: Sources\../Headers/core_cm3.h
+songs.o: D:\ARM\RV31\Inc\stdint.h
+songs.o: Sources\../Headers/core_cmInstr.h
+songs.o: Sources\../Headers/core_cmFunc.h
+songs.o: Sources\../Headers/system_stm32f1xx.h
+songs.o: Sources\songs.h
+songs.o: Sources\touch.h

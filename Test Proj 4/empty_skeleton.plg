@@ -1,0 +1,425 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\kevin\Desktop\Test Proj 4\empty_skeleton.uvproj
+Project File Date:  08/04/2026
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(421): warning:  #111-D: statement is unreachable
+sources\main.c(192): warning:  #177-D: variable "time" was declared but never referenced
+sources\main.c(193): warning:  #177-D: variable "rgb_prev_time" was declared but never referenced
+sources\main.c(194): warning:  #177-D: variable "step" was declared but never referenced
+compiling SystemInit.c...
+assembling startup_stm32f10x_hd.s...
+compiling rtc.c...
+Sources\rtc.c(126): warning:  #1-D: last line of file ends without a newline
+Sources\rtc.c(92): warning:  #550-D: variable "seconds" was set but never used
+Sources\rtc.c(97): warning:  #550-D: variable "y" was set but never used
+compiling touch.c...
+compiling draw.c...
+compiling songs.c...
+compiling lights.c...
+compiling blinds.c...
+Sources\blinds.c(57): error:  #65: expected a ";"
+compiling font5x7.c...
+compiling lcd_grph.c...
+compiling lcd_hw.c...
+compiling lcd_ili9341.c...
+Target not created
+Build target 'Target 1'
+compiling blinds.c...
+linking...
+Program Size: Code=12942 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(422): warning:  #111-D: statement is unreachable
+sources\main.c(192): warning:  #177-D: variable "time" was declared but never referenced
+sources\main.c(193): warning:  #177-D: variable "rgb_prev_time" was declared but never referenced
+sources\main.c(194): warning:  #177-D: variable "step" was declared but never referenced
+compiling blinds.c...
+linking...
+Program Size: Code=12938 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 5 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(422): warning:  #111-D: statement is unreachable
+sources\main.c(192): warning:  #177-D: variable "time" was declared but never referenced
+sources\main.c(193): warning:  #177-D: variable "rgb_prev_time" was declared but never referenced
+sources\main.c(194): warning:  #177-D: variable "step" was declared but never referenced
+compiling blinds.c...
+Sources\blinds.c(90): error:  #65: expected a ";"
+Sources\blinds.c(126): error:  #109: expression must have (pointer-to-) function type
+Sources\blinds.c(128): error:  #65: expected a ";"
+Sources\blinds.c(136): error:  #109: expression must have (pointer-to-) function type
+Sources\blinds.c(138): error:  #65: expected a ";"
+Target not created
+Build target 'Target 1'
+compiling blinds.c...
+linking...
+Program Size: Code=12934 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: Code=12934 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(414): warning:  #223-D: function "rgb_dynamic_run" declared implicitly
+sources\main.c(425): warning:  #111-D: statement is unreachable
+compiling draw.c...
+compiling lights.c...
+Sources\lights.c(140): error:  #65: expected a ";"
+Sources\lights.c(142): error:  #268: declaration may not appear after executable statement in block
+Sources\lights.c(149): warning:  #223-D: function "rgb" declared implicitly
+Sources\lights.c(151): warning:  #223-D: function "rgb_cycle" declared implicitly
+Sources\lights.c(156): error:  #65: expected a ";"
+compiling blinds.c...
+Target not created
+Build target 'Target 1'
+compiling draw.c...
+compiling lights.c...
+Sources\lights.c(148): warning:  #223-D: function "rgb" declared implicitly
+Sources\lights.c(150): warning:  #223-D: function "rgb_cycle" declared implicitly
+linking...
+Program Size: Code=13206 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 2 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling draw.c...
+linking...
+Program Size: Code=13190 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(433): warning:  #223-D: function "rgb_dynamic_run" declared implicitly
+sources\main.c(450): warning:  #111-D: statement is unreachable
+compiling draw.c...
+linking...
+Program Size: Code=13318 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(433): warning:  #223-D: function "rgb_dynamic_run" declared implicitly
+sources\main.c(450): warning:  #111-D: statement is unreachable
+compiling lights.c...
+Sources\lights.c(143): warning:  #223-D: function "rgb" declared implicitly
+Sources\lights.c(145): warning:  #223-D: function "rgb_cycle" declared implicitly
+linking...
+Program Size: Code=13318 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(450): warning:  #111-D: statement is unreachable
+compiling lights.c...
+Sources\lights.c(143): warning:  #223-D: function "rgb" declared implicitly
+Sources\lights.c(145): warning:  #223-D: function "rgb_cycle" declared implicitly
+linking...
+Program Size: Code=13318 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling lights.c...
+linking...
+Program Size: Code=13318 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(153): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(450): warning:  #111-D: statement is unreachable
+compiling lights.c...
+Sources\lights.c(138): error:  #65: expected a ";"
+Sources\lights.c(140): error:  #65: expected a ";"
+Sources\lights.c(143): error:  #65: expected a ";"
+Sources\lights.c(164): error:  #165: too few arguments in function call
+Sources\lights.c(165): error:  #65: expected a ";"
+Target not created
+Build target 'Target 1'
+compiling lights.c...
+Sources\lights.c(164): error:  #165: too few arguments in function call
+Target not created
+Build target 'Target 1'
+compiling lights.c...
+linking...
+Program Size: Code=13378 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\main.c(94): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(385): warning:  #111-D: statement is unreachable
+compiling songs.c...
+compiling lights.c...
+linking...
+Program Size: Code=13374 RO-data=11154 RW-data=20 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 2 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(387): warning:  #111-D: statement is unreachable
+compiling doorbell.c...
+Sources\doorbell.c(29): warning:  #223-D: function "ring_doorbell" declared implicitly
+Sources\doorbell.c(33): warning:  #1-D: last line of file ends without a newline
+linking...
+empty_skeleton.axf: Error: L6218E: Undefined symbol ring_doorbell (referred from doorbell.o).
+Target not created
+Build target 'Target 1'
+compiling doorbell.c...
+Sources\doorbell.c(35): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=13478 RO-data=11154 RW-data=24 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling doorbell.c...
+Sources\doorbell.c(36): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=24 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling doorbell.c...
+Sources\doorbell.c(36): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=24 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling doorbell.c...
+Sources\doorbell.c(40): error:  #65: expected a ";"
+Sources\doorbell.c(46): warning:  #1-D: last line of file ends without a newline
+Sources\doorbell.c(46): warning:  #12-D: parsing restarts here after previous syntax error
+Sources\doorbell.c(37): warning:  #177-D: variable "prev" was declared but never referenced
+Target not created
+Build target 'Target 1'
+compiling doorbell.c...
+Sources\doorbell.c(46): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=13470 RO-data=11154 RW-data=24 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling doorbell.c...
+Sources\doorbell.c(46): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=24 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling doorbell.c...
+Sources\doorbell.c(32): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=13462 RO-data=11154 RW-data=24 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling lights.c...
+linking...
+Program Size: Code=13466 RO-data=11154 RW-data=28 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(388): warning:  #111-D: statement is unreachable
+sources\main.c(121): warning:  #177-D: variable "step" was declared but never referenced
+compiling lights.c...
+linking...
+Program Size: Code=13462 RO-data=11154 RW-data=28 ZI-data=1636  
+"empty_skeleton.axf" - 0 Error(s), 4 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(372): error:  #167: argument of type "int" is incompatible with parameter of type "int *"
+sources\main.c(372): error:  #165: too few arguments in function call
+sources\main.c(387): warning:  #111-D: statement is unreachable
+compiling lights.c...
+Target not created
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(387): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13470 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(388): warning:  #111-D: statement is unreachable
+compiling lights.c...
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(378): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13470 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(378): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(378): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(379): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13486 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(387): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13522 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(107): error:  #20: identifier "i" is undefined
+sources\main.c(386): warning:  #111-D: statement is unreachable
+Target not created
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(387): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13522 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.
+Build target 'Target 1'
+compiling main.c...
+sources\doorbell.h(11): warning:  #1-D: last line of file ends without a newline
+sources\main.c(95): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+sources\main.c(387): warning:  #111-D: statement is unreachable
+linking...
+Program Size: Code=13506 RO-data=11154 RW-data=32 ZI-data=1632  
+"empty_skeleton.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\kevin\\Desktop\\Test Proj 4\\empty_skeleton.AXF" 
+Erase Done.
+Programming Done.
+Verify OK.

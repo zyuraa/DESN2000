@@ -1,0 +1,9 @@
+blinds.o: Sources\blinds.c
+blinds.o: Sources\../Headers/stm32f103xe.h
+blinds.o: Sources\../Headers/core_cm3.h
+blinds.o: D:\ARM\RV31\Inc\stdint.h
+blinds.o: Sources\../Headers/core_cmInstr.h
+blinds.o: Sources\../Headers/core_cmFunc.h
+blinds.o: Sources\../Headers/system_stm32f1xx.h
+blinds.o: Sources\../LCD/ili9341.h
+blinds.o: D:\ARM\RV31\Inc\stdio.h

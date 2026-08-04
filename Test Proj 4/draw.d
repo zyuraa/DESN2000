@@ -1,0 +1,14 @@
+draw.o: Sources\draw.c
+draw.o: Sources\../Headers/stm32f103xe.h
+draw.o: Sources\../Headers/core_cm3.h
+draw.o: D:\ARM\RV31\Inc\stdint.h
+draw.o: Sources\../Headers/core_cmInstr.h
+draw.o: Sources\../Headers/core_cmFunc.h
+draw.o: Sources\../Headers/system_stm32f1xx.h
+draw.o: Sources\../LCD/ili9341.h
+draw.o: Sources\../LCD/lcd_hw.h
+draw.o: Sources\../LCD/ili9341.h
+draw.o: Sources\../LCD/lcd_grph.h
+draw.o: D:\ARM\RV31\Inc\stdio.h
+draw.o: Sources\touch.h
+draw.o: Sources\songs.h

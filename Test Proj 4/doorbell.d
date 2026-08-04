@@ -1,0 +1,9 @@
+doorbell.o: Sources\doorbell.c
+doorbell.o: Sources\../Headers/stm32f103xe.h
+doorbell.o: Sources\../Headers/core_cm3.h
+doorbell.o: D:\ARM\RV31\Inc\stdint.h
+doorbell.o: Sources\../Headers/core_cmInstr.h
+doorbell.o: Sources\../Headers/core_cmFunc.h
+doorbell.o: Sources\../Headers/system_stm32f1xx.h
+doorbell.o: D:\ARM\RV31\Inc\stdio.h
+doorbell.o: Sources\songs.h
